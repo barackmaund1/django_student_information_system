@@ -3,7 +3,7 @@ from django.views import View
 from django.shortcuts import render
 from notice_board.models import Announcement
 
-class BasicHome(View):
+class Home(View):
     def get(self, request):
         annoucements = Announcement.objects.order_by('-created')[:5]
         context = {
