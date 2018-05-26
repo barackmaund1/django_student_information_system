@@ -12,3 +12,6 @@ db.sqlite3
 
 # django secret key
 secret_key.txt
+
+# Google API secret keys
+client_secrets.json
