@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>This is from home.html</h2>
+
+{% for announcement in announcements %}
+<h1>{{ announcement.created }}</h1>
+{% endfor %}
+{% endblock content %}

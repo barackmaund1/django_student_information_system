@@ -6,3 +6,10 @@ class Announcement(models.Model):
     created = models.DateTimeField(default=timezone.now)
     header = models.CharField(max_length=50)
     body_text = models.TextField(max_length=500)
+
+    def __repr__(self):
+        return f'''
+        created={self.created}
+        header={self.header}
+        body_text={self.body_text}
+        '''
