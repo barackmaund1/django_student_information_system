@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 google-api-python-client = "*"
+jsonpickle = "*"
 
 [dev-packages]
 factory-boy = "*"
