@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 django = "*"
+python-social-auth = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
 factory-boy = "*"
