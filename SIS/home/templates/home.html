@@ -2,6 +2,7 @@
 
 {% block content %}
 <h2>Welcome to the SIS</h2>
+<a href="{% url "social:begin" "google-oauth2" %}">Google Sign-in</a>
 
 <div id="announcements">
     {% for announcement in announcements %}

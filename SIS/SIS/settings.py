@@ -66,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -123,6 +125,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+
+# ------------------ All code below is for Django Social Auth App ------------------
+
 # Google OAuth client id / secrets
 json_secrets_path = os.path.join(BASE_DIR, 'client.json')
 with open(json_secrets_path, 'r') as file:
@@ -135,6 +141,40 @@ with open(json_secrets_path, 'r') as file:
     # get the client secret
     client_secret = j['web']['client_secret']
 
+# make sure social_auth is aware of the client id / secret
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = client_id
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = client_secret
 
+# set authentication backends
+# only GoogleOAuth2 *should* be needed
+AUTHENTICATION_BACKENDS = (
+   'social_core.backends.google.GoogleOAuth2',
+   'django.contrib.auth.backends.ModelBackend'
+)
+
+# adding all the pipelines in for the time being, can adjust later
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'social.pipeline.debug.debug',
+)
+
+# ignore the default Google OAuth 2 scope
+SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+# define what scope Google OAuth2 will use to gather data about the user
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/plus.login',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+# the login URL that the user will use to sign in with Google
+LOGIN_URL = '/account/login/'
