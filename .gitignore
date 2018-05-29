@@ -14,4 +14,4 @@ db.sqlite3
 secret_key.txt
 
 # Google API secret keys
-client_secrets.json
+client.json
