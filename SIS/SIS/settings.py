@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'notice_board'
+    'notice_board',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,7 @@ with open(json_secrets_path, 'r') as file:
     client_id = j['web']['client_id']
     # get the client secret
     client_secret = j['web']['client_secret']
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = client_id
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = client_secret
 
