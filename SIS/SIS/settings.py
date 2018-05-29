@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -120,3 +121,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Google OAuth client id / secrets
+json_secrets_path = os.path.join(BASE_DIR, 'client.json')
+with open(json_secrets_path, 'r') as file:
+    # read the JSON file
+    raw_json = file.read()
+    # decode the json
+    j = json.loads(raw_json)
+    # get the client id
+    client_id = j['web']['client_id']
+    # get the client secret
+    client_secret = j['web']['client_secret']
+
