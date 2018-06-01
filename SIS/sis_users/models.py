@@ -18,3 +18,14 @@ class Student(models.Model):
         class_group = user.class_group
         return f'{year_group} - {class_group}'
 
+class UserState(models.Model):
+    '''
+        Model to hold whether an email address is a staff member or a student.
+        Table will be populated by an external script (run once every hour),
+        that will use Google App Manager (GAM) to check email groups and
+        determine if a user is a staff member or a student.
+    '''
+    email_address = models.EmailField(default='')
+    staff = models.BooleanField(default=False)
+
+
