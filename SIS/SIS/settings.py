@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'notice_board',
-    'social_django'
+    'social_django',
+    'sis_users'
 ]
 
 MIDDLEWARE = [
@@ -151,6 +152,7 @@ AUTHENTICATION_BACKENDS = (
    'social_core.backends.google.GoogleOAuth2',
    'django.contrib.auth.backends.ModelBackend'
 )
+
 
 # adding all the pipelines in for the time being, can adjust later
 SOCIAL_AUTH_PIPELINE = (
