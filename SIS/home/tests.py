@@ -13,7 +13,7 @@ class HomeTestCase(TestCase):
     def test_announcements_are_present(self):
         ''' Test that the announcements created in setup appear in the response '''
         # get a response from the home page
-        response = self.client.get(reverse('home-page'))
+        response = self.client.get(reverse('home:home-page'))
         # pull out the announcements from the response
         announcements_from_response = response.context['announcements']
         # assert that the number of announcements in the response
@@ -43,7 +43,7 @@ class HomeTestCase(TestCase):
             )
 
     def test_page_title(self):
-        response = self.client.get(reverse('home-page'))
+        response = self.client.get(reverse('home:home-page'))
         page_title = response.context['page_title']
         self.assertEqual(
             page_title,
