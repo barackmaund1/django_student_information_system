@@ -7,6 +7,7 @@
 
 {% if user.is_authenticated %}
 <h1>Hi, {{ user.first_name }}. You're signed in!</h1>
+<h2>You a member of {{ user_state }}</h2>
 {% else %}
 <h1>You're signed out!</h1>
 {% endif %}
