@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from sis_users.choices import CLASS_CHOICES, YEAR_GROUP_CHOICES
+from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 
 class Staff(models.Model):
@@ -22,9 +22,10 @@ class UserState(models.Model):
     '''
     email_address = models.EmailField(default='')
     staff = models.BooleanField(default=False)
-    class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
-    year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
     is_admin = models.BooleanField(default=False)
+    year = models.IntegerField(choices=YEAR_CHOICES, null=True)
+    band = models.CharField(max_length=1, choices=BAND_CHOICES, null=True)
+    set = models.IntegerField(choices=SET_CHOICES, null=True)
 
 @receiver(post_save, sender=User)
 def create_student_or_staff(sender, instance, created, **kwargs):
