@@ -30,6 +30,7 @@ class UserState(models.Model):
     staff = models.BooleanField(default=False)
     class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
     year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
+    is_admin = models.BooleanField(default=False)
 
 @receiver(post_save, sender=User)
 def create_student_or_staff(sender, instance, created, **kwargs):

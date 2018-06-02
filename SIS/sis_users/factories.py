@@ -24,6 +24,7 @@ class StaffStateFactory(DjangoModelFactory):
 
     email_address = lazy_attribute(lambda x: faker.email())
     staff = True
+    is_admin = False
 
 class StudentStateFactory(DjangoModelFactory):
     class Meta:
