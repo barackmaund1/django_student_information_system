@@ -12,3 +12,9 @@ class ClassGroup(models.Model):
     set = models.IntegerField(choices=SET_CHOICES, null=False)
     subjects = models.ManyToManyField(Subject)
     teachers = models.ManyToManyField('sis_users.Staff')
+
+    def __str__(self):
+        year = self.get_year_display()
+        band = self.get_band_display()
+        set = self.get_set_display()
+        return f'{year} - {band} - {set}'
