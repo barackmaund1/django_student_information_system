@@ -3,7 +3,7 @@ from django.db import models
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 class Subject(models.Model):
-    subject_name = models.CharField(max_length=20, null=True)
+    name = models.CharField(max_length=20, null=True)
     teachers = models.ManyToManyField('sis_users.Staff')
 
 class ClassGroup(models.Model):
