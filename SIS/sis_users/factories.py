@@ -33,3 +33,20 @@ class StudentStateFactory(DjangoModelFactory):
     staff = False
     year_group = lazy_attribute(lambda x: choice([c[0] for c in YEAR_GROUP_CHOICES]))
     class_group = lazy_attribute(lambda x: choice([c[0] for c in CLASS_CHOICES]))
+
+class StaffFactory(DjangoModelFactory):
+    class Meta:
+        model = Staff
+        django_get_or_create = ('user',)
+
+    user = SubFactory(UserFactory)
+    is_admin = lazy_attribute(lambda x: faker.boolean())
+
+class StudentFactory(DjangoModelFactory):
+    class Meta:
+        model = Student
+        django_get_or_create = ('user',)
+
+    user = SubFactory(UserFactory)
+    class_group = 'T1'
+    year_group = 10
