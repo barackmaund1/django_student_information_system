@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.apps import apps
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 
@@ -36,11 +37,21 @@ def create_student_or_staff(sender, instance, created, **kwargs):
         )
         if state.staff:
             Staff.objects.create(
-                user=instance
+                user=instance,
+                is_admin=state.is_admin
             )
         else:
+            class_instance = None
+            if state.year and state.band and state.set:
+                class_model = apps.get_model('class_groups.ClassGroup')
+                class_instance = class_model.objects.get(
+                    year=state.year,
+                    band=state.band,
+                    set=state.set
+                )
             Student.objects.create(
-                user=instance
+                user=instance,
+                class_group=class_instance
             )
 
 @receiver(post_save, sender=User)
