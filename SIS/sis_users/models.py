@@ -14,11 +14,6 @@ class Student(models.Model):
     class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
     year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
 
-    def get_full_class_name(self):
-        class_group = self.get_class_group_display()
-        year_group = self.get_year_group_display()
-        return f'{year_group} - {class_group}'
-
 class UserState(models.Model):
     '''
         Model to hold whether an email address is a staff member or a student.
