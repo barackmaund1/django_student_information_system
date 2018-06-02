@@ -2,18 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from sis_users.choices import CLASS_CHOICES, YEAR_GROUP_CHOICES
-from class_groups.models import ClassGroup
+
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=False)
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    class_group = models.ForeignKey(ClassGroup, on_delete=models.SET_NULL, null=True)
+    class_group = models.ForeignKey('class_groups.ClassGroup', on_delete=models.SET_NULL, null=True)
 
 class UserState(models.Model):
     '''
