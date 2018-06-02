@@ -33,7 +33,7 @@ class UserState(models.Model):
     year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_student_or_staff(sender, instance, created, **kwargs):
     ''' Create a User instance based on whether they are staff or student '''
     if created:
         user_from_state = UserState.objects.get(
