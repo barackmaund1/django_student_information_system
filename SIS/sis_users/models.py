@@ -41,7 +41,8 @@ def create_student_or_staff(sender, instance, created, **kwargs):
         )
         if state.staff:
             Staff.objects.create(
-                user=instance
+                user=instance,
+                is_admin=state.is_admin
             )
         else:
             Student.objects.create(
