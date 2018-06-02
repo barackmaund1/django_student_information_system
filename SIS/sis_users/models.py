@@ -35,14 +35,11 @@ def create_student_or_staff(sender, instance, created, **kwargs):
         )
         if state.staff:
             Staff.objects.create(
-                user=instance,
-                is_admin=state.is_admin
+                user=instance
             )
         else:
             Student.objects.create(
-                user=instance,
-                class_group=state.class_group,
-                year_group=state.year_group
+                user=instance
             )
 
 @receiver(post_save, sender=User)
