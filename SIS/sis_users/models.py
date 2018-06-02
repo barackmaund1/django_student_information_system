@@ -36,13 +36,19 @@ class UserState(models.Model):
 def create_student_or_staff(sender, instance, created, **kwargs):
     ''' Create a User instance based on whether they are staff or student '''
     if created:
-        user_from_state = UserState.objects.get(
+        state = UserState.objects.get(
             email_address=instance.email
         )
-        if user_from_state.staff:
-            Staff.objects.create(user=instance)
+        if state.staff:
+            Staff.objects.create(
+                user=instance
+            )
         else:
-            Student.objects.create(user=instance)
+            Student.objects.create(
+                user=instance,
+                class_group=state.class_group,
+                year_group=state.year_group
+            )
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance, **kwargs):
