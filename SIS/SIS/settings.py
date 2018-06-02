@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'notice_board',
     'social_django',
     'sis_users',
-    'classes'
+    'class_groups'
 ]
 
 MIDDLEWARE = [
