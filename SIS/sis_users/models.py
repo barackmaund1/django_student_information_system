@@ -29,7 +29,8 @@ class UserState(models.Model):
     '''
     email_address = models.EmailField(default='')
     staff = models.BooleanField(default=False)
-
+    class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
+    year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
