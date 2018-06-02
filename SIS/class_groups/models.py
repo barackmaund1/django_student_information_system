@@ -1,5 +1,8 @@
 from django.db import models
-
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.db import DataError
+from django.core.exceptions import ObjectDoesNotExist
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 class Subject(models.Model):
@@ -18,3 +21,22 @@ class ClassGroup(models.Model):
         band = self.get_band_display()
         set = self.get_set_display()
         return f'{year} - {band} - {set}'
+
+@receiver(pre_save, sender=ClassGroup)
+def catch_duplicate_class(sender, instance, **kwargs):
+    '''
+        Catches duplicate class instances being created by
+        checking if the year, band and set are already present.
+        If they're not, the instance is saved.
+    '''
+    try:
+        class_group = ClassGroup.objects.get(
+            year=instance.year,
+            band=instance.band,
+            set=instance.set
+        )
+        # if the above doesn't raise ObjectDoesNotExist, it must be in db
+        # therefore a DataError must be raised
+        raise DataError('Cannot create duplicate classes.')
+    except ObjectDoesNotExist:
+        pass
