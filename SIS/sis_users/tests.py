@@ -22,3 +22,17 @@ class PostSaveTestCase(TestCase):
 
         self.assertEqual(student.class_group, state.class_group)
         self.assertEqual(student.year_group, state.year_group)
+
+    def test_staff_instance(self):
+        '''
+            Same as above, but will staff instead
+            only attributes that need checking are is_admin
+            which should default to false
+        '''
+        state = StaffStateFactory()
+        user = UserFactory(email=state.email_address)
+
+        assert hasattr(user, 'staff')
+        staff = user.staff
+        self.assertEqual(staff.is_admin, False)
+
