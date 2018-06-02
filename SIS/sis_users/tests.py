@@ -36,3 +36,15 @@ class PostSaveTestCase(TestCase):
         staff = user.staff
         self.assertEqual(staff.is_admin, False)
 
+    def test_admin_instance(self):
+        '''
+            Same as above, but with admin flag set to true
+        '''
+        state = StaffStateFactory(
+            is_admin=True
+        )
+        user = UserFactory(email=state.email_address)
+
+        assert hasattr(user, 'staff')
+        staff = user.staff
+        self.assertEqual(staff.is_admin, True)
