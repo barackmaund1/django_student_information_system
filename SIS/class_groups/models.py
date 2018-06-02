@@ -9,3 +9,4 @@ class ClassGroup(models.Model):
     year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=False)
     class_name = models.CharField(max_length=2, choices=CLASS_CHOICES, null=False)
     subjects = models.ManyToManyField(Subject)
+    teachers = models.ManyToManyField('sis_users.Staff')
