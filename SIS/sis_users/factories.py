@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 import faker
 from random import choice
 
-from sis_users.models import Staff, Student, UserState
-from sis_users.choices import CLASS_CHOICES, YEAR_GROUP_CHOICES
+from sis_users.models import Admin, Staff, Student, UserState
+from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 faker = faker.Factory.create()
 
