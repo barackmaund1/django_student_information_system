@@ -18,6 +18,14 @@ class UserFactory(DjangoModelFactory):
     email = lazy_attribute(lambda x: faker.email())
     password = lazy_attribute(lambda x: faker.password())
 
+class AdminStateFactory(DjangoModelFactory):
+    class Meta:
+        model = UserState
+
+    email_address = lazy_attribute(lambda x: faker.email())
+    staff = True
+    is_admin = True
+
 class StaffStateFactory(DjangoModelFactory):
     class Meta:
         model = UserState
@@ -32,8 +40,16 @@ class StudentStateFactory(DjangoModelFactory):
 
     email_address = lazy_attribute(lambda x: faker.email())
     staff = False
-    year_group = lazy_attribute(lambda x: choice([c[0] for c in YEAR_GROUP_CHOICES]))
-    class_group = lazy_attribute(lambda x: choice([c[0] for c in CLASS_CHOICES]))
+    is_admin = False
+    year = lazy_attribute(lambda x: choice(YEAR_CHOICES))
+    band = lazy_attribute(lambda x: choice(BAND_CHOICES))
+    set = lazy_attribute(lambda x: choice(SET_CHOICES))
+
+class AdminFactory(DjangoModelFactory):
+    class Meta:
+        model = Admin
+
+    user = SubFactory(UserFactory)
 
 class StaffFactory(DjangoModelFactory):
     class Meta:
@@ -41,7 +57,6 @@ class StaffFactory(DjangoModelFactory):
         django_get_or_create = ('user',)
 
     user = SubFactory(UserFactory)
-    is_admin = lazy_attribute(lambda x: faker.boolean())
 
 class StudentFactory(DjangoModelFactory):
     class Meta:
