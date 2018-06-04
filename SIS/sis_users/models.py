@@ -21,7 +21,7 @@ class UserState(models.Model):
         that will use Google App Manager (GAM) to check email groups and
         determine if a user is a staff member or a student.
     '''
-    email = models.EmailField(default='')
+    email = models.EmailField(default='', unique=True)
     staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     year = models.IntegerField(choices=YEAR_CHOICES, null=True)
