@@ -41,9 +41,9 @@ class StudentStateFactory(DjangoModelFactory):
     email = lazy_attribute(lambda x: faker.email())
     staff = False
     is_admin = False
-    year = lazy_attribute(lambda x: choice(YEAR_CHOICES))
-    band = lazy_attribute(lambda x: choice(BAND_CHOICES))
-    set = lazy_attribute(lambda x: choice(SET_CHOICES))
+    year = lazy_attribute(lambda x: choice([c[0] for c in YEAR_CHOICES]))
+    band = lazy_attribute(lambda x: choice([c[0] for c in BAND_CHOICES]))
+    set = lazy_attribute(lambda x: choice([c[0] for c in SET_CHOICES]))
 
 class AdminFactory(DjangoModelFactory):
     class Meta:
