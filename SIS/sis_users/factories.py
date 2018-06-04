@@ -22,7 +22,7 @@ class AdminStateFactory(DjangoModelFactory):
     class Meta:
         model = UserState
 
-    email_address = lazy_attribute(lambda x: faker.email())
+    email = lazy_attribute(lambda x: faker.email())
     staff = True
     is_admin = True
 
@@ -30,7 +30,7 @@ class StaffStateFactory(DjangoModelFactory):
     class Meta:
         model = UserState
 
-    email_address = lazy_attribute(lambda x: faker.email())
+    email = lazy_attribute(lambda x: faker.email())
     staff = True
     is_admin = False
 
@@ -38,7 +38,7 @@ class StudentStateFactory(DjangoModelFactory):
     class Meta:
         model = UserState
 
-    email_address = lazy_attribute(lambda x: faker.email())
+    email = lazy_attribute(lambda x: faker.email())
     staff = False
     is_admin = False
     year = lazy_attribute(lambda x: choice(YEAR_CHOICES))
