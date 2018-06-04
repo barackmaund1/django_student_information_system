@@ -37,10 +37,14 @@ def create_student_or_staff(sender, instance, created, **kwargs):
             email=instance.email
         )
         if state.staff:
-            Staff.objects.create(
-                user=instance,
-                is_admin=state.is_admin
-            )
+            if state.is_admin:
+                Admin.objects.create(
+                    user=instance
+                )
+            else:
+                Staff.objects.create(
+                    user=instance
+                )
         else:
             class_instance = None
             if state.year and state.band and state.set:
@@ -57,6 +61,8 @@ def create_student_or_staff(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance, **kwargs):
+    if hasattr(instance, 'admin'):
+        instance.admin.save()
     if hasattr(instance, 'staff'):
         instance.staff.save()
     if hasattr(instance, 'student'):
