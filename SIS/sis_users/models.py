@@ -5,10 +5,11 @@ from django.dispatch import receiver
 from django.apps import apps
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_admin = models.BooleanField(default=False)
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
