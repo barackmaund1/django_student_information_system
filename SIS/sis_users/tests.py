@@ -1,6 +1,8 @@
 from django.test import TestCase
 
 from sis_users.factories import StudentStateFactory, StaffStateFactory, UserFactory
+from sis_users.models import UserState
+from django.contrib.auth.models import User
 
 class PostSaveTestCase(TestCase):
     '''
@@ -14,4 +16,17 @@ class PostSaveTestCase(TestCase):
             assert that the user has a student instance
             wtih the correct attributes (class_group, year_group)
         '''
-        state = StudentStateFactory()
+        state = UserState.objects.create(
+            email="some_test_email@example.com",
+            staff=False,
+            is_admin=False,
+            year=10,
+            band='V',
+            set=1
+        )
+        # retrieve same user from User table
+        user = User.objects.get(
+            email=state.email
+        )
+        # assert it's got a relationship to student
+        assert hasattr(user, 'student')
