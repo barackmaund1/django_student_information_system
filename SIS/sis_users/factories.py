@@ -48,6 +48,7 @@ class StudentStateFactory(DjangoModelFactory):
 class AdminFactory(DjangoModelFactory):
     class Meta:
         model = Admin
+        django_get_or_create = ('user',)
 
     user = SubFactory(UserFactory)
 
