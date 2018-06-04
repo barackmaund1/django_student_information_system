@@ -33,7 +33,7 @@ def create_student_or_staff(sender, instance, created, **kwargs):
     ''' Create a User instance based on whether they are staff or student '''
     if created:
         state = UserState.objects.get(
-            email_address=instance.email
+            email=instance.email
         )
         if state.staff:
             Staff.objects.create(
