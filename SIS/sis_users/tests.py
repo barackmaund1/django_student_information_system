@@ -16,6 +16,26 @@ class PostSaveTestCase(TestCase):
         Test that the post_save hooks are working correctly
         ie. making the correct instance based on the info from the state table
     '''
+
+    def test_admin_instance(self):
+        '''
+            AdminStateFactory creates a state, then a UserFactory creates a
+            user using the same email address.
+            The user should have an admin instance attached, currently there
+            are no attribute values to check, until more functionality is
+            given to the Admin model.
+        '''
+        # create an admin state
+        state = AdminStateFactory()
+        # create a user
+        user = UserFactory(email=state.email)
+        # retrieve the same user from the db
+        user_from_db = User.objects.get(
+            email=state.email
+        )
+        # check the instance has an 'admin' attribute
+        assert hasattr(user_from_db, 'admin')
+
     def test_student_instance(self):
         '''
             StudentStateFactory creates a state, then a UserFactory creates
