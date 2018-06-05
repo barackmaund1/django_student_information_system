@@ -20,6 +20,8 @@ class Home(View):
                 user_state = 'staff'
             elif hasattr(user, 'student'):
                 user_state = 'student'
+            elif hasattr(user, 'admin'):
+                user_state = 'admin'
             context['user_state'] = user_state
 
         return render(request, "home.html", context)
