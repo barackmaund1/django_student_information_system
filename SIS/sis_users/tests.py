@@ -4,9 +4,6 @@ from sis_users.factories import (
     AdminStateFactory,
     StaffStateFactory,
     StudentStateFactory,
-    AdminFactory,
-    StaffFactory,
-    StudentFactory,
     UserFactory
 )
 from class_groups.factories import ClassGroupFactory
