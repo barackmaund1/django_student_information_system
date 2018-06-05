@@ -9,10 +9,13 @@ class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Admin: {self.user.email}'
+        return f'{self.user.email}'
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.email}'
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -20,6 +23,9 @@ class Student(models.Model):
                                     on_delete=models.SET_NULL,
                                     null=True,
                                     blank=True)
+
+    def __str__(self):
+        return f'{self.user.email}'
 
 class UserState(models.Model):
     '''
@@ -34,6 +40,9 @@ class UserState(models.Model):
     year = models.IntegerField(choices=YEAR_CHOICES, null=True)
     band = models.CharField(max_length=1, choices=BAND_CHOICES, null=True)
     set = models.IntegerField(choices=SET_CHOICES, null=True)
+
+    def __str__(self):
+        return f'{self.email} - Admin: {self.is_admin} - Staff: {staff}'
 
 @receiver(post_save, sender=User)
 def create_student_or_staff(sender, instance, created, **kwargs):
