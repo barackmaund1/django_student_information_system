@@ -36,6 +36,21 @@ class PostSaveTestCase(TestCase):
         # check the instance has an 'admin' attribute
         assert hasattr(user_from_db, 'admin')
 
+    def test_staff_model(self):
+        '''
+            Same process as Admin model, but with the Staff model instead.
+        '''
+        # create a staff state
+        state = StaffStateFactory()
+        # create a user
+        user = UserFactory(email=state.email)
+        # retrieve that user from the db
+        user_from_db = User.objects.get(
+            email=state.email
+        )
+        # check the instance has a 'staff' attribute
+        assert hasattr(user_from_db, 'staff')
+
     def test_student_instance(self):
         '''
             StudentStateFactory creates a state, then a UserFactory creates
