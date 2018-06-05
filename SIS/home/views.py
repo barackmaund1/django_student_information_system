@@ -22,6 +22,11 @@ class Home(View):
                 user_state = 'student'
             elif hasattr(user, 'admin'):
                 user_state = 'admin'
+            else:
+                if user.is_superuser:
+                    user_state = 'super user'
+                else:
+                    user_state = ''
             context['user_state'] = user_state
 
         return render(request, "home.html", context)
