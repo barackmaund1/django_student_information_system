@@ -9,6 +9,9 @@ class Subject(models.Model):
     name = models.CharField(max_length=20, null=True)
     teachers = models.ManyToManyField('sis_users.Staff')
 
+    def __str__(self):
+        return self.name
+
 class ClassGroup(models.Model):
     year = models.IntegerField(choices=YEAR_CHOICES, null=False)
     band = models.CharField(max_length=1, choices=BAND_CHOICES, null=False)
