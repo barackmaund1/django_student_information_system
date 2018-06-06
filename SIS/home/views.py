@@ -29,7 +29,7 @@ class Home(View):
                     user_state = ''
             context['user_state'] = user_state
 
-        return render(request, "home.html", context)
+        return render(request, "home/home.html", context)
 
 class Logout(View):
     def get(self, request):
