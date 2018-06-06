@@ -6,6 +6,16 @@
 {% endblock %}
 
 {% block content %}
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+    {% endif %}
     <div class="row">
         <div class="col-sm">
             <h1>Welcome to the SIS</h1>
@@ -21,6 +31,7 @@
             {% endif %}
         </div>
     </div>
+
 <div id="announcements">
     {% for announcement in announcements %}
     <h1>{{ announcement.header }}</h1>
