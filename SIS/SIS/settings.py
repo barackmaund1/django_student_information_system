@@ -158,6 +158,7 @@ AUTHENTICATION_BACKENDS = (
 # adding all the pipelines in for the time being, can adjust later
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
+    'sis_users.pipeline.user_state_exists',
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
