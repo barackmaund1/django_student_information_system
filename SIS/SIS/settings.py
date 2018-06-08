@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sis_users.middleware.UserStateDoesNotExistMiddleware',
 ]
 
 ROOT_URLCONF = 'SIS.urls'
@@ -158,6 +159,7 @@ AUTHENTICATION_BACKENDS = (
 # adding all the pipelines in for the time being, can adjust later
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
+    'sis_users.pipeline.user_state_exists',
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
@@ -176,4 +178,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
