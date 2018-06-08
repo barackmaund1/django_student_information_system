@@ -2,7 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 class LoginRequiredMessageMixin(LoginRequiredMixin):
-    error_message = ''
+    login_url = '/'
+    error_message = 'You need to login using your school email address.'
 
     def get_error_message(self):
         return self.error_message

@@ -3,8 +3,6 @@ from sis_users.mixins import LoginRequiredMessageMixin
 from class_groups.models import ClassGroup
 
 class YearView(LoginRequiredMessageMixin, ListView):
-    login_url = '/'
-    error_message = 'You need to login using your school email address.'
     template_name = 'class_groups/genericlistview.html'
 
     def get_queryset(self):
@@ -12,8 +10,6 @@ class YearView(LoginRequiredMessageMixin, ListView):
         return ClassGroup.objects.filter(year=year)
 
 class BandView(LoginRequiredMessageMixin, ListView):
-    login_url = '/'
-    error_message = 'You need to login using your school email address.'
     template_name = 'class_groups/genericlistview.html'
 
     def get_queryset(self):
@@ -25,8 +21,6 @@ class BandView(LoginRequiredMessageMixin, ListView):
         )
 
 class SetView(LoginRequiredMessageMixin, ListView):
-    login_url = '/'
-    error_message = 'You need to login using your school email address.'
     template_name = 'class_groups/genericlistview.html'
 
     def get_queryset(self):
