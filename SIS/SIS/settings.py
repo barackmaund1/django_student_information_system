@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sis_users.middleware.UserStateDoesNotExistMiddleware',
 ]
 
 ROOT_URLCONF = 'SIS.urls'
@@ -177,4 +178,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
