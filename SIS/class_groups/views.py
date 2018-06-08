@@ -3,11 +3,15 @@ from sis_users.mixins import LoginRequiredMessageMixin
 from class_groups.models import ClassGroup
 
 class YearView(LoginRequiredMessageMixin, ListView):
+    template_name = 'class_groups/genericlistview.html'
+
     def get_queryset(self):
         year = self.kwargs['year']
         return ClassGroup.objects.filter(year=year)
 
 class BandView(LoginRequiredMessageMixin, ListView):
+    template_name = 'class_groups/genericlistview.html'
+
     def get_queryset(self):
         year = self.kwargs['year']
         band = self.kwargs['band']
@@ -17,6 +21,8 @@ class BandView(LoginRequiredMessageMixin, ListView):
         )
 
 class SetView(LoginRequiredMessageMixin, ListView):
+    template_name = 'class_groups/genericlistview.html'
+
     def get_queryset(self):
         year = self.kwargs['year']
         band = self.kwargs['band']
