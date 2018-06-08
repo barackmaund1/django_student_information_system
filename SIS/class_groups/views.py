@@ -1,11 +1,28 @@
-from django.shortcuts import render
 from django.views.generic import ListView
+from sis_users.mixins import LoginRequiredMessageMixin
+from class_groups.models import ClassGroup
 
-class YearView(ListView):
-    pass
+class YearView(LoginRequiredMessageMixin, ListView):
+    def get_queryset(self):
+        year = self.kwargs['year']
+        return ClassGroup.objects.filter(year=year)
 
-class BandView(ListView):
-    pass
+class BandView(LoginRequiredMessageMixin, ListView):
+    def get_queryset(self):
+        year = self.kwargs['year']
+        band = self.kwargs['band']
+        return ClassGroup.objects.filter(
+            year=year,
+            band=band
+        )
 
-class SetView(ListView):
-    pass
+class SetView(LoginRequiredMessageMixin, ListView):
+    def get_queryset(self):
+        year = self.kwargs['year']
+        band = self.kwargs['band']
+        set = self.kwargs['set']
+        return ClassGroup.objects.filter(
+            year=year,
+            band=band,
+            set=set
+        )
