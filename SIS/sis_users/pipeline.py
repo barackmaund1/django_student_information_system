@@ -1,5 +1,5 @@
 from sis_users.models import UserState
-from sis_users.exceptions import UserStateNotPresentException
+from sis_users.exceptions import UserStateDoesNotExistException
 
 def user_state_exists(backend, details, response, *args, **kwargs):
     email = details['email']
@@ -8,4 +8,4 @@ def user_state_exists(backend, details, response, *args, **kwargs):
             email=email
         )
     except UserState.DoesNotExist:
-        raise UserStateNotPresentException(backend)
+        raise UserStateDoesNotExistException(backend)
