@@ -2,6 +2,12 @@ from django.views.generic import ListView
 from sis_users.mixins import LoginRequiredMessageMixin
 from class_groups.models import ClassGroup
 
+class SchoolView(LoginRequiredMessageMixin, ListView):
+    template_name = 'class_groups/genericlistview.html'
+
+    def get_queryset(self):
+        return ClassGroup.objects.all()
+
 class YearView(LoginRequiredMessageMixin, ListView):
     template_name = 'class_groups/genericlistview.html'
 
