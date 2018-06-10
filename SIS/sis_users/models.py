@@ -19,7 +19,7 @@ class Staff(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    class_group = models.ForeignKey('class_groups.ClassGroup',
+    class_group = models.ForeignKey('class_groups.Set',
                                     on_delete=models.SET_NULL,
                                     null=True,
                                     blank=True)
@@ -62,11 +62,11 @@ def create_student_or_staff(sender, instance, created, **kwargs):
         else:
             class_instance = None
             if state.year and state.band and state.set:
-                class_model = apps.get_model('class_groups.ClassGroup')
+                class_model = apps.get_model('class_groups.Set')
                 class_instance = class_model.objects.get(
-                    year=state.year,
-                    band=state.band,
-                    set=state.set
+                    value=state.set,
+                    band__value=state.band,
+                    band__year__value=state.year
                 )
             Student.objects.create(
                 user=instance,

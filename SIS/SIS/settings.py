@@ -181,3 +181,5 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
+# ------------------ User Settings (will be different for each school) ------------------
+SCHOOL_NAME = os.environ['SCHOOL_NAME']
