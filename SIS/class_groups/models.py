@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db import DataError
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 class School(models.Model):
@@ -11,6 +11,16 @@ class School(models.Model):
 class Year(models.Model):
     school = models.ForeignKey('School', on_delete=models.SET_NULL, null=True)
     value = models.IntegerField(choices=YEAR_CHOICES, null=False)
+
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+        qs = Year.objects.filter(value=self.value)
+        if qs.filter(school=self.school).exists():
+            raise ValidationError('Years must be unique within each school.')
+
+    def save(self, *args, **kwargs):
+        self.validate_unique()
+        super().save(*args, **kwargs)
 
 class Band(models.Model):
     year = models.ForeignKey('Year', on_delete=models.SET_NULL, null=True)
