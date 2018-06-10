@@ -2,12 +2,14 @@ from django.test import TestCase
 from class_groups.models import (
     ClassGroup,
     School,
-    Year
+    Year,
+    Band
 )
 from class_groups.factories import (
     ClassGroupFactory,
     SchoolFactory,
-    YearFactory
+    YearFactory,
+    BandFactory
 )
 
 # Create your tests here.
@@ -54,3 +56,24 @@ class YearTestCase(TestCase):
             self.year.school.name
         )
 
+class BandTest(TestCase):
+    def setUp(self):
+        self.band = BandFactory()
+
+    def test_band_creation(self):
+        band = Band.objects.get(pk=self.band.pk)
+
+        self.assertEqual(
+            band.value,
+            self.band.value
+        )
+
+        self.assertEqual(
+            band.year.value,
+            self.band.year.value
+        )
+
+        self.assertEqual(
+            band.year.school.name,
+            self.band.year.school.name
+        )
