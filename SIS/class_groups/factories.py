@@ -27,6 +27,13 @@ class BandFactory(DjangoModelFactory):
     year = lazy_attribute(lambda x: YearFactory())
     value = lazy_attribute(lambda x: choice([c[0] for c in BAND_CHOICES]))
 
+class SetFactory(DjangoModelFactory):
+    class Meta:
+        model = Set
+
+    band = lazy_attribute(lambda x: BandFactory())
+    value = lazy_attribute(lambda x: choice([c[0] for c in SET_CHOICES]))
+
 class ClassGroupFactory(DjangoModelFactory):
     class Meta:
         model = ClassGroup
