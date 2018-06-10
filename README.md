@@ -1,3 +1,7 @@
+Note: This is a rebuild of an internal project I created for my employer. It works, however I didn't want to put the repo pulic for two reasons
+* Privacy issues, it wasn't created with the intention of ever been shown to the world, as such there is sensitive information strewn throughout the repo.
+* Code quality: this project is inspired by the original, but built from the ground up after learning from many (not all!) of my previous mistakes.
+
 # Django Student Information System
 
 The school I work at doesn't have the funding to purchase a student information system (SIS), so I thought it would be best to build one myself.
