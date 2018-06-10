@@ -4,7 +4,7 @@ from sis_users.mixins import LoginRequiredMessageMixin
 from class_groups.models import School, Year, Band, Set
 
 class SchoolView(LoginRequiredMessageMixin, DetailView):
-    template_name = 'class_groups/school_class_page.html'
+    template_name = 'class_groups/school_page.html'
     model = School
 
     def get_object(self, queryset=None):
@@ -12,7 +12,7 @@ class SchoolView(LoginRequiredMessageMixin, DetailView):
         return School.objects.get(name=settings.SCHOOL_NAME)
 
 class YearView(LoginRequiredMessageMixin, DetailView):
-    template_name = 'class_groups/year_class_page.html'
+    template_name = 'class_groups/year_page.html'
     model = Year
 
     def get_object(self, queryset=None):
@@ -21,7 +21,7 @@ class YearView(LoginRequiredMessageMixin, DetailView):
         )
 
 class BandView(LoginRequiredMessageMixin, DetailView):
-    template_name = 'class_groups/band_class_page.html'
+    template_name = 'class_groups/band_page.html'
     model = Band
 
     def get_object(self, queryset=None):
@@ -30,6 +30,14 @@ class BandView(LoginRequiredMessageMixin, DetailView):
             year__value=self.kwargs['year']
         )
 
-class SetView(LoginRequiredMessageMixin, ListView):
-    template_name = 'class_groups/base_class_page.html'
+class SetView(LoginRequiredMessageMixin, DetailView):
+    template_name = 'class_groups/set_page.html'
+    model = Set
+
+    def get_object(self, queryset=None):
+        return Set.objects.get(
+            value=self.kwargs['set'],
+            band__value=self.kwargs['band'],
+            band__year__value=self.kwargs['year']
+        )
 
