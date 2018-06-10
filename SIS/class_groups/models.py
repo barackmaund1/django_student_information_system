@@ -26,6 +26,17 @@ class Band(models.Model):
     year = models.ForeignKey('Year', on_delete=models.SET_NULL, null=True)
     value = models.CharField(max_length=1, choices=BAND_CHOICES, null=False)
 
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+        qs = Band.objects.filter(value=self.value)
+        if qs.filter(year=self.year).exists():
+            if qs.filter(year__school=self.year.school).exists():
+                raise ValidationError('Each band must be unique within each year group.')
+
+    def save(self, *args, **kwargs):
+        self.validate_unique()
+        super().save(*args, **kwargs)
+
 class Set(models.Model):
     band = models.ForeignKey('Band', on_delete=models.SET_NULL, null=True)
     value = models.IntegerField(choices=SET_CHOICES, null=False)
