@@ -6,7 +6,7 @@ from sis_users.factories import (
     StudentStateFactory,
     UserFactory
 )
-from class_groups.factories import ClassGroupFactory
+from class_groups.factories import SetFactory
 
 class PostSaveTestCase(TestCase):
     '''
@@ -57,12 +57,13 @@ class PostSaveTestCase(TestCase):
         '''
 
         # create a class group
-        class_group = ClassGroupFactory()
+        # class_group = ClassGroupFactory()
+        class_group = SetFactory()
         # create a student state with the same class attributes
         state = StudentStateFactory(
-            year=class_group.year,
-            band=class_group.band,
-            set=class_group.set
+            year=class_group.band.year.value,
+            band=class_group.band.value,
+            set=class_group.value
         )
         # create a user with the same email as the state
         user = UserFactory(email=state.email)
@@ -77,7 +78,16 @@ class PostSaveTestCase(TestCase):
         # check the student has a class_group instance
         assert hasattr(student, 'class_group')
         # check the attributes are equal to the state
-        self.assertEqual(student.class_group.year, state.year)
-        self.assertEqual(student.class_group.band, state.band)
-        self.assertEqual(student.class_group.set, state.set)
+        self.assertEqual(
+            student.class_group.band.year.value,
+            state.year
+        )
+        self.assertEqual(
+            student.class_group.band.value,
+            state.band
+        )
+        self.assertEqual(
+            student.class_group.value,
+            state.set
+        )
 
