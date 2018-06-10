@@ -20,6 +20,13 @@ class YearFactory(DjangoModelFactory):
     school = lazy_attribute(lambda x: SchoolFactory())
     value = lazy_attribute(lambda x: choice([c[0] for c in YEAR_CHOICES]))
 
+class BandFactory(DjangoModelFactory):
+    class Meta:
+        model = Band
+
+    year = lazy_attribute(lambda x: YearFactory())
+    value = lazy_attribute(lambda x: choice([c[0] for c in BAND_CHOICES]))
+
 class ClassGroupFactory(DjangoModelFactory):
     class Meta:
         model = ClassGroup
