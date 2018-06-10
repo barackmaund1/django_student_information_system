@@ -13,6 +13,13 @@ class SchoolFactory(DjangoModelFactory):
 
     name = lazy_attribute(lambda x: faker.sentence(nb_words=4))
 
+class YearFactory(DjangoModelFactory):
+    class Meta:
+        model = Year
+
+    school = lazy_attribute(lambda x: SchoolFactory())
+    value = lazy_attribute(lambda x: choice([c[0] for c in YEAR_CHOICES]))
+
 class ClassGroupFactory(DjangoModelFactory):
     class Meta:
         model = ClassGroup
