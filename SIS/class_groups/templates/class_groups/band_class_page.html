@@ -10,5 +10,12 @@
 
 {% block class_list %}
     <div class="row">
+        <div class="col-sm">
+            {% for set in sets %}
+                <a href="{% url 'class_groups:set-view' year.0 band.0 set.0 %}">
+                    <h4 class="text-center">Set {{ set.1 }}</h4>
+                </a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
