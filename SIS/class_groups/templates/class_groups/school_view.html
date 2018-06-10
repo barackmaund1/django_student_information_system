@@ -1,0 +1,36 @@
+{% extends 'class_groups/genericlistview.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'class_groups/common_styles.css' %}" />
+{% endblock %}
+
+{% block header %}
+    <div class="row spacer">
+        <div class="col-sm">
+            <h2 class="text-center">All Classes</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block class_list %}
+    <div class="row">
+        {% for year in years %}
+            <div class="col-sm-4">
+            <a href="{% url 'class_groups:year-view' year.0 %}">
+            <h3 class="text-center">{{ year.1 }}</h3>
+            </a>
+            {% for band in bands %}
+                <a href="{% url 'class_groups:band-view' year.0 band.0 %}">
+                <h4 class="text-center">{{ band.1 }}</h4>
+                </a>
+                {% for set in sets %}
+                    <a href="{% url 'class_groups:set-view' year.0 band.0 set.0 %}">
+                    <h5 class="text-center">Set {{ set.1 }}</h5>
+                    </a>
+                {% endfor %}
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

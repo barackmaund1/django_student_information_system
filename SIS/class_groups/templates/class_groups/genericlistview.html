@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <ul>
-        {% for class in classgroup_list %}
-            <li><a href="{% url 'class_groups:set-view' class.year class.band class.set %}">{{ class }}</a></li>
-        {% endfor %}
-    </ul>
+    {% block header %}
+    {% endblock %}
+    {% block class_list %}
+    {% endblock %}
 {% endblock %}
