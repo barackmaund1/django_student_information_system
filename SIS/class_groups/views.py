@@ -18,7 +18,7 @@ class YearView(LoginRequiredMessageMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['year'] = tuple(filter(lambda x: x[0] == self.kwargs['year'], YEAR_CHOICES))
+        context['year'] = tuple(filter(lambda x: x[0] == int(self.kwargs['year']), YEAR_CHOICES))[0]
         context['bands'] = BAND_CHOICES
         context['sets'] = SET_CHOICES
         return context
