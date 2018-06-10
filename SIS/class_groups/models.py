@@ -25,7 +25,8 @@ class Year(models.Model):
             raise ValidationError('Years must be unique within each school.')
 
     def save(self, *args, **kwargs):
-        self.validate_unique()
+        if not self.pk:
+            self.validate_unique()
         super().save(*args, **kwargs)
 
 class Band(models.Model):
@@ -45,7 +46,8 @@ class Band(models.Model):
                 raise ValidationError('Each band must be unique within each year group.')
 
     def save(self, *args, **kwargs):
-        self.validate_unique()
+        if not self.pk:
+            self.validate_unique()
         super().save(*args, **kwargs)
 
 class Set(models.Model):
@@ -69,7 +71,8 @@ class Set(models.Model):
                     raise ValidationError('Each set must be unique within each band.')
 
     def save(self, *args, **kwargs):
-        self.validate_unique()
+        if not self.pk:
+            self.validate_unique()
         super().save(*args, **kwargs)
 
 class Subject(models.Model):
