@@ -9,7 +9,7 @@ from sis_users.factories import (
     StaffFactory,
     StudentFactory
 )
-from class_groups.models import ClassGroup
+from class_groups.models import Set
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -30,11 +30,12 @@ class Command(BaseCommand):
         state = StudentStateFactory(email=student_email)
         student = StudentFactory(user__email=state.email)
 
-        # assign some random class to the student
-        classes = list(ClassGroup.objects.all())
-        # random class group
-        class_group = choice(classes)
-        # assign it to the student
+        # assign class to student
+        class_group = Set.objects.get(
+            value=state.set,
+            band__value=state.band,
+            band__year__value=state.year
+        )
         student.class_group = class_group
         # save the student
         student.save()
