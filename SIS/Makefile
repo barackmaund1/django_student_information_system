@@ -12,7 +12,7 @@ migrate:
 
 resetdb:
 	python manage.py flush
-	python manage.py createclasses
+	python manage.py createschoolstructure
 	python manage.py createtestusers
 
 shell:
