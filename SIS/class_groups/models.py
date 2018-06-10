@@ -8,9 +8,15 @@ from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 class School(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class Year(models.Model):
     school = models.ForeignKey('School', on_delete=models.SET_NULL, null=True)
     value = models.IntegerField(choices=YEAR_CHOICES, null=False)
+
+    def __str__(self):
+        return self.get_value_display()
 
     def validate_unique(self, *args, **kwargs):
         super().validate_unique(*args, **kwargs)
@@ -25,6 +31,11 @@ class Year(models.Model):
 class Band(models.Model):
     year = models.ForeignKey('Year', on_delete=models.SET_NULL, null=True)
     value = models.CharField(max_length=1, choices=BAND_CHOICES, null=False)
+
+    def __str__(self):
+        year = self.year.get_value_display()
+        band = self.get_value_display()
+        return f'{year} - {band}'
 
     def validate_unique(self, *args, **kwargs):
         super().validate_unique(*args, **kwargs)
@@ -42,6 +53,12 @@ class Set(models.Model):
     value = models.IntegerField(choices=SET_CHOICES, null=False)
     subjects = models.ManyToManyField('Subject')
     teachers = models.ManyToManyField('sis_users.Staff')
+
+    def __str__(self):
+        year = self.band.year.get_value_display()
+        band = self.band.get_value_display()
+        set = self.get_value_display()
+        return f'{year} - {band} - {set}'
 
     def validate_unique(self, *args, **kwargs):
         super().validate_unique(*args, **kwargs)
