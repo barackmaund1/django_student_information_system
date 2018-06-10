@@ -43,6 +43,18 @@ class Set(models.Model):
     subjects = models.ManyToManyField('Subject')
     teachers = models.ManyToManyField('sis_users.Staff')
 
+    def validate_unique(self, *args, **kwargs):
+        super().validate_unique(*args, **kwargs)
+        qs = Set.objects.filter(value=self.value)
+        if qs.filter(band=self.band).exists():
+            if qs.filter(band__year=self.band.year).exists():
+                if qs.filter(band__year__school=self.band.year.school).exists():
+                    raise ValidationError('Each set must be unique within each band.')
+
+    def save(self, *args, **kwargs):
+        self.validate_unique()
+        super().save(*args, **kwargs)
+
 class Subject(models.Model):
     name = models.CharField(max_length=20, null=True)
     teachers = models.ManyToManyField('sis_users.Staff')
