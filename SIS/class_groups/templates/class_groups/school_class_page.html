@@ -10,21 +10,21 @@
 
 {% block class_list %}
     <div class="row">
-        {% for year in years %}
+        {% for year in school.year_set.all %}
             <div class="col-sm-4">
-            <a href="{% url 'class_groups:year-view' year.0 %}">
-            <h3 class="text-center">{{ year.1 }}</h3>
-            </a>
-            {% for band in bands %}
-                <a href="{% url 'class_groups:band-view' year.0 band.0 %}">
-                <h4 class="text-center">{{ band.1 }}</h4>
+                <a href="{% url 'class_groups:year-view' year.value %}">
+                    <h3 class="text-center">{{ year.get_value_display }}</h3>
                 </a>
-                {% for set in sets %}
-                    <a href="{% url 'class_groups:set-view' year.0 band.0 set.0 %}">
-                    <h5 class="text-center">Set {{ set.1 }}</h5>
+                {% for band in year.band_set.all %}
+                    <a href="{% url 'class_groups:band-view' year.value band.value %}">
+                        <h4 class="text-center">{{ band.get_value_display }}</h4>
                     </a>
+                    {% for set in band.set_set.all %}
+                        <a href="{% url 'class_groups:set-view' year.value band.value set.value %}">
+                            <h5 class="text-center">{{ set.get_value_display }}</h5>
+                        </a>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
             </div>
         {% endfor %}
     </div>
