@@ -3,13 +3,15 @@ from class_groups.models import (
     ClassGroup,
     School,
     Year,
-    Band
+    Band,
+    Set
 )
 from class_groups.factories import (
     ClassGroupFactory,
     SchoolFactory,
     YearFactory,
-    BandFactory
+    BandFactory,
+    SetFactory
 )
 
 # Create your tests here.
@@ -76,4 +78,31 @@ class BandTest(TestCase):
         self.assertEqual(
             band.year.school.name,
             self.band.year.school.name
+        )
+
+class SetTest(TestCase):
+    def setUp(self):
+        self.set = SetFactory()
+
+    def test_set_creation(self):
+        set = Set.objects.get(pk=self.set.pk)
+
+        self.assertEqual(
+            set.value,
+            self.set.value
+        )
+
+        self.assertEqual(
+            set.band.value,
+            self.set.band.value
+        )
+
+        self.assertEqual(
+            set.band.year.value,
+            self.set.band.year.value
+        )
+
+        self.assertEqual(
+            set.band.year.school.name,
+            self.set.band.year.school.name
         )
