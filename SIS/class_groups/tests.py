@@ -1,6 +1,6 @@
 from django.test import TestCase
-from class_groups.models import ClassGroup, Subject
-from class_groups.factories import ClassGroupFactory, SubjectFactory
+from class_groups.models import ClassGroup, School
+from class_groups.factories import ClassGroupFactory, SchoolFactory
 
 # Create your tests here.
 class ClassTestCase(TestCase):
@@ -17,3 +17,12 @@ class ClassTestCase(TestCase):
 class SubjectTestCase(TestCase):
     def test_subject_creation(self):
         pass
+
+class SchoolTestCase(TestCase):
+    def setUp(self):
+        self.school = SchoolFactory()
+    def test_school_creation(self):
+        school = School.objects.get(pk=self.school.pk)
+
+        self.assertEqual(school.name, self.school.name)
+
