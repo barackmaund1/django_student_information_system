@@ -29,7 +29,7 @@ class BandView(LoginRequiredMessageMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['year'] = tuple(filter(lambda x: x[0] == int(self.kwargs['year']), YEAR_CHOICES))[0]
-        context['band'] = tuple(filter(lambda x: x[0] == int(self.kwargs['band']), YEAR_CHOICES))[0]
+        context['band'] = tuple(filter(lambda x: x[0] == self.kwargs['band'], BAND_CHOICES))[0]
         context['sets'] = SET_CHOICES
         return context
 
