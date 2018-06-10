@@ -1,6 +1,14 @@
 from django.test import TestCase
-from class_groups.models import ClassGroup, School
-from class_groups.factories import ClassGroupFactory, SchoolFactory
+from class_groups.models import (
+    ClassGroup,
+    School,
+    Year
+)
+from class_groups.factories import (
+    ClassGroupFactory,
+    SchoolFactory,
+    YearFactory
+)
 
 # Create your tests here.
 class ClassTestCase(TestCase):
@@ -24,5 +32,25 @@ class SchoolTestCase(TestCase):
     def test_school_creation(self):
         school = School.objects.get(pk=self.school.pk)
 
-        self.assertEqual(school.name, self.school.name)
+        self.assertEqual(
+            school.name,
+            self.school.name
+        )
+
+class YearTestCase(TestCase):
+    def setUp(self):
+        self.year = YearFactory()
+
+    def test_year_creation(self):
+        year = Year.objects.get(pk=self.year.pk)
+
+        self.assertEqual(
+            year.value,
+            self.year.value
+        )
+
+        self.assertEqual(
+            year.school.name,
+            self.year.school.name
+        )
 
