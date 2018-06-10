@@ -19,7 +19,7 @@ class Staff(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    class_group = models.ForeignKey('class_groups.ClassGroup',
+    class_group = models.ForeignKey('class_groups.Set',
                                     on_delete=models.SET_NULL,
                                     null=True,
                                     blank=True)
