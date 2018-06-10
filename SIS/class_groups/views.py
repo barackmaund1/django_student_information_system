@@ -23,16 +23,16 @@ class YearView(LoginRequiredMessageMixin, TemplateView):
         context['sets'] = SET_CHOICES
         return context
 
-class BandView(LoginRequiredMessageMixin, ListView):
-    template_name = 'class_groups/base_class_page.html'
+class BandView(LoginRequiredMessageMixin, TemplateView):
+    template_name = 'class_groups/band_class_page.html'
 
-    def get_queryset(self):
-        year = self.kwargs['year']
-        band = self.kwargs['band']
-        return ClassGroup.objects.filter(
-            year=year,
-            band=band
-        )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['year'] = tuple(filter(lambda x: x[0] == int(self.kwargs['year']), YEAR_CHOICES))[0]
+        context['band'] = tuple(filter(lambda x: x[0] == int(self.kwargs['band']), YEAR_CHOICES))[0]
+        context['sets'] = SET_CHOICES
+        return context
+
 
 class SetView(LoginRequiredMessageMixin, ListView):
     template_name = 'class_groups/base_class_page.html'
