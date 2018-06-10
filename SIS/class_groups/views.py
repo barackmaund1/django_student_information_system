@@ -20,8 +20,15 @@ class YearView(LoginRequiredMessageMixin, DetailView):
             value=self.kwargs['year']
         )
 
-class BandView(LoginRequiredMessageMixin, TemplateView):
+class BandView(LoginRequiredMessageMixin, DetailView):
     template_name = 'class_groups/band_class_page.html'
+    model = Band
+
+    def get_object(self, queryset=None):
+        return Band.objects.get(
+            value=self.kwargs['band'],
+            year__value=self.kwargs['year']
+        )
 
 class SetView(LoginRequiredMessageMixin, ListView):
     template_name = 'class_groups/base_class_page.html'

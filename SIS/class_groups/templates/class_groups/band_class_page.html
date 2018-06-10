@@ -3,19 +3,19 @@
 {% block header %}
     <div class="row spacer">
         <div class="col-sm">
-            <h2 class="text-center">{{ year.1 }} - {{ band.1 }}</h2>
+            <h2 class="text-center">{{ band }}</h2>
         </div>
     </div>
 {% endblock %}
 
 {% block class_list %}
-    <div class="row">
-        <div class="col-sm">
-            {% for set in sets %}
-                <a href="{% url 'class_groups:set-view' year.0 band.0 set.0 %}">
-                    <h4 class="text-center">Set {{ set.1 }}</h4>
+    <a class="row">
+        {% for set in band.set_set.all %}
+            <div class="col-sm">
+                <a href="{% url 'class_groups:set-view' band.year.value band.value set.value %}">
+                    <h3 class="text-center">{{ set.get_value_display }}</h3>
                 </a>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
