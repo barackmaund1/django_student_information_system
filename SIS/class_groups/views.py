@@ -1,11 +1,10 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from sis_users.mixins import LoginRequiredMessageMixin
 from class_groups.models import ClassGroup
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
-class SchoolView(LoginRequiredMessageMixin, ListView):
+class SchoolView(LoginRequiredMessageMixin, TemplateView):
     template_name = 'class_groups/school_view.html'
-    queryset = ClassGroup.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
