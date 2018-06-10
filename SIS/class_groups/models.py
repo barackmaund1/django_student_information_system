@@ -5,6 +5,23 @@ from django.db import DataError
 from django.core.exceptions import ObjectDoesNotExist
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
+class School(models.Model):
+    name = models.CharField(max_length=100)
+
+class Year(models.Model):
+    school = models.ForeignKey('School', on_delete=models.SET_NULL, null=True)
+    value = models.IntegerField(choices=YEAR_CHOICES, null=False)
+
+class Band(models.Model):
+    year = models.ForeignKey('Year', on_delete=models.SET_NULL, null=True)
+    value = models.CharField(max_length=1, choices=BAND_CHOICES, null=False)
+
+class Set(models.Model):
+    band = models.ForeignKey('Band', on_delete=models.SET_NULL, null=True)
+    value = models.IntegerField(choices=SET_CHOICES, null=False)
+    subjects = models.ManyToManyField('Subject')
+    teachers = models.ManyToManyField('sis_users.Staff')
+
 class Subject(models.Model):
     name = models.CharField(max_length=20, null=True)
     teachers = models.ManyToManyField('sis_users.Staff')
