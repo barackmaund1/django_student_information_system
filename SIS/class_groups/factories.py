@@ -2,10 +2,16 @@ import faker
 from factory.django import DjangoModelFactory
 from factory import lazy_attribute
 from random import choice
-from class_groups.models import ClassGroup, Subject
+from class_groups.models import ClassGroup, Subject, School, Year, Band, Set
 from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
 
 faker = faker.Factory.create()
+
+class SchoolFactory(DjangoModelFactory):
+    class Meta:
+        model = School
+
+    name = lazy_attribute(lambda x: faker.sentence(nb_words=4))
 
 class ClassGroupFactory(DjangoModelFactory):
     class Meta:
