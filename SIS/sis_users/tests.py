@@ -57,7 +57,6 @@ class PostSaveTestCase(TestCase):
         '''
 
         # create a class group
-        # class_group = ClassGroupFactory()
         class_group = SetFactory()
         # create a student state with the same class attributes
         state = StudentStateFactory(
