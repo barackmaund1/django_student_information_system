@@ -6,13 +6,11 @@ from sis_users.views import (
     StaffDetail,
     StudentList,
     StudentDetail,
-    Profile
 )
 
 app_name = 'sis_users'
 
 urlpatterns = [
-    path('profile', Profile.as_view(), name='profile'),
     path('admins', AdminList.as_view(), name='admin-list'),
     path('admins/<username>', AdminDetail.as_view(), name='admin-detail'),
     path('staff', StaffList.as_view(), name='staff-list'),

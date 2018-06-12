@@ -1,13 +1,7 @@
-from django.shortcuts import render
-from django.views import View
 from django.views.generic import ListView, DetailView
-from django.urls import reverse
 from sis_users.mixins import LoginRequiredMessageMixin
 from sis_users.models import Admin, Staff, Student
 
-class Profile(LoginRequiredMessageMixin, View):
-    def get(self, request):
-        return render(request, 'sis_users/base_profile.html')
 
 class AdminList(LoginRequiredMessageMixin, ListView):
     template_name = 'sis_users/admin_list.html'
