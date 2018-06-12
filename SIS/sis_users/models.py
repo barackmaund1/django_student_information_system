@@ -42,7 +42,7 @@ class UserState(models.Model):
     set = models.IntegerField(choices=SET_CHOICES, null=True)
 
     def __str__(self):
-        return f'{self.email} - Admin: {self.is_admin} - Staff: {staff}'
+        return f'{self.email} - Admin: {self.is_admin} - Staff: {self.staff}'
 
 @receiver(post_save, sender=User)
 def create_student_or_staff(sender, instance, created, **kwargs):
@@ -55,10 +55,9 @@ def create_student_or_staff(sender, instance, created, **kwargs):
                 Admin.objects.create(
                     user=instance
                 )
-            else:
-                Staff.objects.create(
-                    user=instance
-                )
+            Staff.objects.create(
+                user=instance
+            )
         else:
             class_instance = None
             if state.year and state.band and state.set:
