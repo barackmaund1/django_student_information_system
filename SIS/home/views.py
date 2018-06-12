@@ -15,19 +15,17 @@ class Home(View):
             'page_title': 'home page',
             'announcements': annoucements,
         }
+        states = []
         if not request.user.is_anonymous:
             if hasattr(user, 'staff'):
-                user_state = 'staff'
-            elif hasattr(user, 'student'):
-                user_state = 'student'
-            elif hasattr(user, 'admin'):
-                user_state = 'admin'
-            else:
-                if user.is_superuser:
-                    user_state = 'super user'
-                else:
-                    user_state = ''
-            context['user_state'] = user_state
+                states.append('staff')
+            if hasattr(user, 'student'):
+                states.append('student')
+            if hasattr(user, 'admin'):
+                states.append('admin')
+            if user.is_superuser:
+                states.append('super-user')
+            context['user_state'] = '/'.join(states)
 
         return render(request, "home/home.html", context)
 
