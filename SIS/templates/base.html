@@ -16,6 +16,11 @@
           {% if user.is_authenticated %}
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                {% if user.staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'class_groups:school-view' %}">Classes</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'sis_users:profile' %}">Profile</a>
                 </li>
