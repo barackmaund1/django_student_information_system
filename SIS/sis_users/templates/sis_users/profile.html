@@ -11,7 +11,7 @@
         <div class="col-sm">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ user.first_name }}'s Profile</h3>
+                    <h3 class="panel-title">{{ object.user.first_name }}'s Profile</h3>
                 </div>
                 <div class="row spacer"></div>
                 <div>
@@ -25,7 +25,7 @@
                                                 First Name:
                                             </td>
                                             <td>
-                                                {{ user.first_name }}
+                                                {{ object.user.first_name }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -33,7 +33,7 @@
                                                 Last Name:
                                             </td>
                                             <td>
-                                                {{  user.last_name }}
+                                                {{  object.user.last_name }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -41,35 +41,9 @@
                                                 Email:
                                             </td>
                                             <td>
-                                                {{  user.email }}
+                                                {{  object.user.email }}
                                             </td>
                                         </tr>
-                                        {% if user.student %}
-                                            <tr>
-                                                <td>
-                                                    Class:
-                                                </td>
-                                                <td>
-                                                    {{  user.student.class_group }}
-                                                </td>
-                                            </tr>
-                                        {% endif %}
-                                        {% if user.staff %}
-                                            {% if not user.is_admin %}
-                                                <tr>
-                                                    <td>
-                                                        Classes:
-                                                    </td>
-                                                    <td>
-                                                        <ul>
-                                                        {% for classgroup in user.staff.classgroup_set.all %}
-                                                            <li>{{ classgroup }}</li>
-                                                        {% endfor %}
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endif %}
                                     </tbody>
                                 </table>
                             </div>

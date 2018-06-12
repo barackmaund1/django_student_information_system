@@ -22,17 +22,26 @@ class StaffList(LoginRequiredMessageMixin, ListView):
         return Staff.objects.all()
 
 class StudentList(LoginRequiredMessageMixin, ListView):
+    template_name = 'sis_users/student_list.html'
+
     def get_queryset(self):
         return Student.objects.all()
 
 class AdminDetail(LoginRequiredMessageMixin, DetailView):
+    template_name = 'sis_users/profile.html'
+
     def get_object(self, queryset=None):
         return Admin.objects.get(user__username=self.kwargs['username'])
 
+
 class StaffDetail(LoginRequiredMessageMixin, DetailView):
+    template_name = 'sis_users/profile.html'
+
     def get_object(self, queryset=None):
         return Staff.objects.get(user__username=self.kwargs['username'])
 
 class StudentDetail(LoginRequiredMessageMixin, DetailView):
+    template_name = 'sis_users/profile.html'
+
     def get_object(self, queryset=None):
         return Student.objects.get(user__username=self.kwargs['username'])
