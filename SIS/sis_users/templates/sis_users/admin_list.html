@@ -7,7 +7,9 @@
 {% block list %}
     <ul>
         {% for admin in admin_list %}
-            <li>{{ admin }}</li>
+            <li>
+                <a href="{% url 'sis_users:admin-detail' admin.user.username %}">{{ admin.user.username }}</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -7,7 +7,9 @@
 {% block list %}
     <ul>
         {% for staff in staff_list %}
-            <li>{{ staff }}</li>
+            <li>
+                <a href="{% url 'sis_users:staff-detail' staff.user.username %}">{{ staff.user.username }}</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
