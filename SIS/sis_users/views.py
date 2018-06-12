@@ -7,7 +7,7 @@ from sis_users.models import Admin, Staff, Student
 
 class Profile(LoginRequiredMessageMixin, View):
     def get(self, request):
-        return render(request, 'sis_users/profile.html')
+        return render(request, 'sis_users/base_profile.html')
 
 class AdminList(LoginRequiredMessageMixin, ListView):
     template_name = 'sis_users/admin_list.html'
@@ -28,20 +28,20 @@ class StudentList(LoginRequiredMessageMixin, ListView):
         return Student.objects.all()
 
 class AdminDetail(LoginRequiredMessageMixin, DetailView):
-    template_name = 'sis_users/profile.html'
+    template_name = 'sis_users/admin_profile.html'
 
     def get_object(self, queryset=None):
         return Admin.objects.get(user__username=self.kwargs['username'])
 
 
 class StaffDetail(LoginRequiredMessageMixin, DetailView):
-    template_name = 'sis_users/profile.html'
+    template_name = 'sis_users/staff_profile.html'
 
     def get_object(self, queryset=None):
         return Staff.objects.get(user__username=self.kwargs['username'])
 
 class StudentDetail(LoginRequiredMessageMixin, DetailView):
-    template_name = 'sis_users/profile.html'
+    template_name = 'sis_users/student_profile.html'
 
     def get_object(self, queryset=None):
         return Student.objects.get(user__username=self.kwargs['username'])

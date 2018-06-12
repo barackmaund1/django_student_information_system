@@ -11,7 +11,7 @@
         <div class="col-sm">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ object.user.first_name }}'s Profile</h3>
+                    <h3 class="panel-title">{{ object.user.first_name }}'s {% block state %}{% endblock %}Profile</h3>
                 </div>
                 <div class="row spacer"></div>
                 <div>
@@ -53,8 +53,6 @@
             </div>
         </div>
     </div>
-
-
-
-
+    {% block state_specific %}
+    {% endblock %}
 {% endblock %}
