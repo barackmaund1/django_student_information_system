@@ -21,8 +21,10 @@ class StaffList(BaseAccessMessageMixin, ListView):
     def get_queryset(self):
         return Staff.objects.all()
 
-class StudentList(LoginRequiredMessageMixin, ListView):
+class StudentList(BaseAccessMessageMixin, ListView):
     template_name = 'sis_users/student_list.html'
+    permitted_attributes = ['admin', 'staff', 'student']
+    error_message = 'You must be a staff member, administrator or student to access this page.'
 
     def get_queryset(self):
         return Student.objects.all()
