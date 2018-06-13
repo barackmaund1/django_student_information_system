@@ -128,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# login URL for redirection (will always go to the homepage by default)
+LOGIN_URL = '/'
 
 
 # ------------------ All code below is for Django Social Auth App ------------------
