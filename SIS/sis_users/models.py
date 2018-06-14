@@ -19,7 +19,7 @@ class Staff(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    class_group = models.ForeignKey('class_groups.Set',
+    set = models.ForeignKey('class_groups.Set',
                                     on_delete=models.SET_NULL,
                                     null=True,
                                     blank=True)
@@ -69,7 +69,7 @@ def create_student_or_staff(sender, instance, created, **kwargs):
                 )
             Student.objects.create(
                 user=instance,
-                class_group=class_instance
+                set=class_instance
             )
             
 

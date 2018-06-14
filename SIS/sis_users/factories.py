@@ -65,4 +65,4 @@ class StudentFactory(DjangoModelFactory):
         django_get_or_create = ('user',)
 
     user = SubFactory(UserFactory)
-    class_group = None
+    set = None
