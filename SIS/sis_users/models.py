@@ -2,22 +2,30 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from sis_users.choices import CLASS_CHOICES, YEAR_GROUP_CHOICES
+from django.apps import apps
+from class_groups.choices import YEAR_CHOICES, BAND_CHOICES, SET_CHOICES
+
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.email}'
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_admin = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'{self.user.email}'
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
-    year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
+    set = models.ForeignKey('class_groups.Set',
+                                    on_delete=models.SET_NULL,
+                                    null=True,
+                                    blank=True)
 
-    def get_full_class_name(self):
-        class_group = self.get_class_group_display()
-        year_group = self.get_year_group_display()
-        return f'{year_group} - {class_group}'
+    def __str__(self):
+        return f'{self.user.email}'
 
 class UserState(models.Model):
     '''
@@ -26,33 +34,49 @@ class UserState(models.Model):
         that will use Google App Manager (GAM) to check email groups and
         determine if a user is a staff member or a student.
     '''
-    email_address = models.EmailField(default='')
+    email = models.EmailField(default='', unique=True)
     staff = models.BooleanField(default=False)
-    class_group = models.CharField(max_length=4, choices=CLASS_CHOICES, null=True)
-    year_group = models.IntegerField(choices=YEAR_GROUP_CHOICES, null=True)
     is_admin = models.BooleanField(default=False)
+    year = models.IntegerField(choices=YEAR_CHOICES, null=True)
+    band = models.CharField(max_length=1, choices=BAND_CHOICES, null=True)
+    set = models.IntegerField(choices=SET_CHOICES, null=True)
+
+    def __str__(self):
+        return f'{self.email} - Admin: {self.is_admin} - Staff: {self.staff}'
 
 @receiver(post_save, sender=User)
 def create_student_or_staff(sender, instance, created, **kwargs):
-    ''' Create a User instance based on whether they are staff or student '''
     if created:
         state = UserState.objects.get(
-            email_address=instance.email
+            email=instance.email
         )
         if state.staff:
+            if state.is_admin:
+                Admin.objects.create(
+                    user=instance
+                )
             Staff.objects.create(
-                user=instance,
-                is_admin=state.is_admin
+                user=instance
             )
         else:
+            class_instance = None
+            if state.year and state.band and state.set:
+                class_model = apps.get_model('class_groups.Set')
+                class_instance = class_model.objects.get(
+                    value=state.set,
+                    band__value=state.band,
+                    band__year__value=state.year
+                )
             Student.objects.create(
                 user=instance,
-                class_group=state.class_group,
-                year_group=state.year_group
+                set=class_instance
             )
+            
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance, **kwargs):
+    if hasattr(instance, 'admin'):
+        instance.admin.save()
     if hasattr(instance, 'staff'):
         instance.staff.save()
     if hasattr(instance, 'student'):

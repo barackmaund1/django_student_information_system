@@ -1,0 +1,15 @@
+{% extends 'sis_users/base_list.html' %}
+
+{% block header %}
+    <h3 class="text-center">Staff List</h3>
+{% endblock %}
+
+{% block list %}
+    <ul>
+        {% for staff in staff_list %}
+            <li>
+                <a href="{% url 'sis_users:staff-detail' staff.user.username %}">{{ staff.user.username }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

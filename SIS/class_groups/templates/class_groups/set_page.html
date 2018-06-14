@@ -1,0 +1,24 @@
+{% extends 'class_groups/base.html' %}
+
+{% block header %}
+    <div class="row spacer">
+        <div class="col-sm">
+            <h2 class="text-center">{{ set }}</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block class_list %}
+    <div class="row">
+        <div class="col-sm">
+            <h3 class="text-center">Students</h3>
+            {% for student in set.student_set.all %}
+                <ul>
+                <li>
+                    <a href="{% url 'sis_users:student-detail' student.user.username %}">{{ student.user.username }}</a>
+                </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

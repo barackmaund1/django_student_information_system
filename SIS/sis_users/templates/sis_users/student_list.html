@@ -1,0 +1,15 @@
+{% extends 'sis_users/base_list.html' %}
+
+{% block header %}
+    <h3 class="text-center">Student List</h3>
+{% endblock %}
+
+{% block list %}
+    <ul>
+        {% for student in student_list %}
+            <li>
+                <a href="{% url 'sis_users:student-detail' student.user.username %}">{{ student.user.username }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

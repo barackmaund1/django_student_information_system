@@ -15,3 +15,6 @@ secret_key.txt
 
 # Google API secret keys
 client.json
+
+# setup.sh script (full of private stuff)
+setup.sh

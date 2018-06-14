@@ -1,0 +1,31 @@
+{% extends 'class_groups/base.html' %}
+
+{% block header %}
+    <div class="row spacer">
+        <div class="col-sm">
+            <h2 class="text-center">All Classes</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block class_list %}
+    <div class="row">
+        {% for year in school.year_set.all %}
+            <div class="col-sm-4">
+                <a href="{% url 'class_groups:year-view' year.value %}">
+                    <h3 class="text-center">{{ year.get_value_display }}</h3>
+                </a>
+                {% for band in year.band_set.all %}
+                    <a href="{% url 'class_groups:band-view' year.value band.value %}">
+                        <h4 class="text-center">{{ band.get_value_display }}</h4>
+                    </a>
+                    {% for set in band.set_set.all %}
+                        <a href="{% url 'class_groups:set-view' year.value band.value set.value %}">
+                            <h5 class="text-center">{{ set.get_value_display }}</h5>
+                        </a>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

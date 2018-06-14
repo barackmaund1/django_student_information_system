@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'sis_users/profile.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ object.user.first_name }}'s {% block state %}{% endblock %}Profile</h3>
+                </div>
+                <div class="row spacer"></div>
+                <div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                First Name:
+                                            </td>
+                                            <td>
+                                                {{ object.user.first_name }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Last Name:
+                                            </td>
+                                            <td>
+                                                {{  object.user.last_name }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Email:
+                                            </td>
+                                            <td>
+                                                {{  object.user.email }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block state_specific %}
+    {% endblock %}
+{% endblock %}

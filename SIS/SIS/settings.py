@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'home',
     'notice_board',
-    'social_django',
-    'sis_users'
+    'sis_users',
+    'class_groups'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sis_users.middleware.UserStateDoesNotExistMiddleware',
 ]
 
 ROOT_URLCONF = 'SIS.urls'
@@ -126,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# login URL for redirection (will always go to the homepage by default)
+LOGIN_URL = '/'
 
 
 # ------------------ All code below is for Django Social Auth App ------------------
@@ -157,6 +161,7 @@ AUTHENTICATION_BACKENDS = (
 # adding all the pipelines in for the time being, can adjust later
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
+    'sis_users.pipeline.user_state_exists',
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
@@ -176,3 +181,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
 
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
+
+# ------------------ User Settings (will be different for each school) ------------------
+SCHOOL_NAME = os.environ['SCHOOL_NAME']

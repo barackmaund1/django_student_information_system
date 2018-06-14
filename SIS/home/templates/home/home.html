@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-sm">
+            <h1>Welcome to the SIS</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            {% if user.is_authenticated %}
+            <h3>Hi, {{ user.first_name }}. You're signed in!</h3>
+            <h4>You a member of {{ user_state }}</h4>
+            {% else %}
+            <h3>You're signed out!</h3>
+            {% endif %}
+        </div>
+    </div>
+
+<div id="announcements">
+    {% for announcement in announcements %}
+    <h1>{{ announcement.header }}</h1>
+    <h4>{{ announcement.created }}</h4>
+    <p>{{ announcement.body_text }}</p>
+    {% endfor %}
+</div>
+{% endblock content %}

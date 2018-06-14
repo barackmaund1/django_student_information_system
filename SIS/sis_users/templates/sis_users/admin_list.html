@@ -1,0 +1,15 @@
+{% extends 'sis_users/base_list.html' %}
+
+{% block header %}
+    <h3 class="text-center">Admin List</h3>
+{% endblock %}
+
+{% block list %}
+    <ul>
+        {% for admin in admin_list %}
+            <li>
+                <a href="{% url 'sis_users:admin-detail' admin.user.username %}">{{ admin.user.username }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
