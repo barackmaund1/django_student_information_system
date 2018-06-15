@@ -17,6 +17,10 @@ class Staff(models.Model):
     def __str__(self):
         return f'{self.user.email}'
 
+    @property
+    def class_set(self):
+        return self.set_set.order_by('band__year__value', 'band__value', 'value')
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     set = models.ForeignKey('class_groups.Set',

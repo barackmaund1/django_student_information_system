@@ -6,6 +6,11 @@ Staff
 
 {% block state_specific %}
     <div class="row">
-        <h2>This is where staff specific stuff will go.</h2>
+        <h3>Classes</h3>
+            <ul>
+                {% for set in object.class_set %}
+                    <li><a href="{% url 'class_groups:set-view' set.band.year.value set.band.value set.value %}">{{ set }}</a></li>
+                {% endfor %}
+            </ul>
     </div>
 {% endblock %}

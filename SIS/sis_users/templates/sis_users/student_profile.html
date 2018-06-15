@@ -6,6 +6,7 @@ Student
 
 {% block state_specific %}
     <div class="row">
-        <h2>This is where student specific stuff will go.</h2>
+        <h3>Class:</h3>
+        <h4><a href="{% url 'class_groups:set-view' object.set.band.year.value object.set.band.value object.set.value %}">{{ object.set }}</a></h4>
     </div>
 {% endblock %}
